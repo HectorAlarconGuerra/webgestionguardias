@@ -1,60 +1,44 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  NavLink,
-} from "react-router-dom";
-import Contacto from "./components/Contacto";
-import Inicio from "./components/Inicio";
-import Nosotros from "./components/Nosotros";
-import Tareas from "./components/Tareas";
-import User from "./components/User";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Login from "./components/Login";
+import Admin from "./components/Admin";
+import Navbar from "./components/Navbar";
+
+import { auth } from "./utils/firebase";
 
 function App() {
-  return (
-    <Router>
-      <div className="container mt-5">
-        <div className="btn-group">
-          <Link to="/" className="btn btn-dark">
-            Inicio
-          </Link>
-          <Link to="/tareas" className="btn btn-dark">
-            Tareas
-          </Link>
-          <Link to="/nosotros" className="btn btn-dark">
-            Nosotros
-          </Link>
-          <NavLink
-            to="/contacto"
-            className="btn btn-dark"
-            activeClassName="active"
-          >
-            Contacto
-          </NavLink>
-        </div>
-        <hr />
-        <Switch>
-          <Route path="/tareas">
-            <Tareas />
-          </Route>
-          <Route path="/nosotros/:id">
-            <User />
-          </Route>
-          <Route path="/contacto">
-            <Contacto />
-          </Route>
+  const [firebaseUser, setFirebaseUser] = useState(false);
 
-          <Route path="/nosotros">
-            <Nosotros />
-          </Route>
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        setFirebaseUser(user);
+      } else {
+        setFirebaseUser(null);
+      }
+    });
+  }, []);
+
+  return firebaseUser !== false ? (
+    <Router>
+      <div className="container">
+        <Navbar firebaseUser={firebaseUser} />
+        <Switch>
           <Route path="/" exact>
-            <Inicio />
+            inicio...
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/admin">
+            <Admin />
           </Route>
         </Switch>
       </div>
     </Router>
+  ) : (
+    <p>Cargando...</p>
   );
 }
 

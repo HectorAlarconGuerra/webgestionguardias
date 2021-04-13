@@ -10,17 +10,16 @@ const User = () => {
 
   useEffect(() => {
     // console.log("useEffect");
+    const obtenerDatos = async () => {
+      const data = await fetch(
+        `http://age-of-empires-2-api.herokuapp.com/api/v1/civilization/${id}`
+      );
+      const users = await data.json();
+      //console.log(users);
+      setUsuario(users);
+    };
     obtenerDatos();
-  }, []);
-
-  const obtenerDatos = async () => {
-    const data = await fetch(
-      `http://age-of-empires-2-api.herokuapp.com/api/v1/civilization/${id}`
-    );
-    const users = await data.json();
-    //console.log(users);
-    setUsuario(users);
-  };
+  }, [obtenerDatos]);
 
   return (
     <div>

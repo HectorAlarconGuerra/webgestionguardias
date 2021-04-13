@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { firebase } from "../utils/firebase";
+import React from "react";
+import { db } from "../utils/firebase";
 
-const Tareas = () => {
-  const [tareas, setTareas] = useState([]);
-  const [tarea, setTarea] = useState("");
-  const [modoEdicion, setModoEdicion] = useState(false);
-  const [id, setId] = useState("");
+import moment from "moment";
+import "moment/locale/es";
 
-  useEffect(() => {
+const Firestore = (props) => {
+  const [tareas, setTareas] = React.useState([]);
+  const [tarea, setTarea] = React.useState("");
+  const [modoEdicion, setModoEdicion] = React.useState(false);
+  const [id, setId] = React.useState("");
+
+  React.useEffect(() => {
     const obtenerDatos = async () => {
       try {
-        const db = firebase.firestore();
-        const data = await db.collection("tareas").get();
+        const data = await db.collection(props.user.uid).get();
         const arrayData = data.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -24,7 +26,7 @@ const Tareas = () => {
     };
 
     obtenerDatos();
-  }, []);
+  }, [props.user.uid]);
 
   const agregar = async (e) => {
     e.preventDefault();
@@ -35,12 +37,11 @@ const Tareas = () => {
     }
 
     try {
-      const db = firebase.firestore();
       const nuevaTarea = {
         name: tarea,
         fecha: Date.now(),
       };
-      const data = await db.collection("tareas").add(nuevaTarea);
+      const data = await db.collection(props.user.uid).add(nuevaTarea);
 
       setTareas([...tareas, { ...nuevaTarea, id: data.id }]);
 
@@ -54,8 +55,7 @@ const Tareas = () => {
 
   const eliminar = async (id) => {
     try {
-      const db = firebase.firestore();
-      await db.collection("tareas").doc(id).delete();
+      await db.collection(props.user.uid).doc(id).delete();
 
       const arrayFiltrado = tareas.filter((item) => item.id !== id);
       setTareas(arrayFiltrado);
@@ -73,12 +73,11 @@ const Tareas = () => {
   const editar = async (e) => {
     e.preventDefault();
     if (!tarea.trim()) {
-      console.log("está vacio");
+      console.log("vacio");
       return;
     }
     try {
-      const db = firebase.firestore();
-      await db.collection("tareas").doc(id).update({
+      await db.collection(props.user.uid).doc(id).update({
         name: tarea,
       });
       const arrayEditado = tareas.map((item) =>
@@ -94,21 +93,22 @@ const Tareas = () => {
   };
 
   return (
-    <div className="container mt-3">
+    <div>
       <div className="row">
         <div className="col-md-6">
+          <h3>Lista de tareas</h3>
           <ul className="list-group">
             {tareas.map((item) => (
-              <li className="list group item" key={item.id}>
-                {item.name}
+              <li className="list-group-item" key={item.id}>
+                {item.name} - {moment(item.fecha).format("LLL")}
                 <button
-                  className="btn btn-danger btn-sm float-right mt-1"
+                  className="btn btn-danger btn-sm float-right"
                   onClick={() => eliminar(item.id)}
                 >
                   Eliminar
                 </button>
                 <button
-                  className="btn btn-warning btn-sm float-right mr-2 mt-1"
+                  className="btn btn-warning btn-sm float-right mr-2"
                   onClick={() => activarEdicion(item)}
                 >
                   Editar
@@ -118,7 +118,7 @@ const Tareas = () => {
           </ul>
         </div>
         <div className="col-md-6">
-          <h3>{modoEdicion ? " Editar Tarea" : "Agregar Tarea"}</h3>
+          <h3>{modoEdicion ? "Editar Tarea" : "Agregar Tarea"}</h3>
           <form onSubmit={modoEdicion ? editar : agregar}>
             <input
               type="text"
@@ -144,4 +144,4 @@ const Tareas = () => {
   );
 };
 
-export default Tareas;
+export default Firestore;
