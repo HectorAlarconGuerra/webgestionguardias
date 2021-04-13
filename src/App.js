@@ -5,6 +5,7 @@ import Admin from "./components/Admin";
 import Navbar from "./components/Navbar";
 
 import { auth } from "./utils/firebase";
+import Reset from "./components/Reset";
 
 function App() {
   const [firebaseUser, setFirebaseUser] = useState(false);
@@ -33,6 +34,9 @@ function App() {
           </Route>
           <Route path="/admin">
             <Admin />
+          </Route>
+          <Route path="/reset">
+            <Reset />
           </Route>
         </Switch>
       </div>
