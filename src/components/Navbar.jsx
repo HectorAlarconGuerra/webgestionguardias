@@ -22,7 +22,12 @@ const Navbar = (props) => {
           </NavLink>
           {props.firebaseUser !== null ? (
             <NavLink className="btn btn-dark mr-2" to="/admin">
-              Admin
+              Consignas
+            </NavLink>
+          ) : null}
+          {props.firebaseUser !== null ? (
+            <NavLink className="btn btn-dark mr-2" to="/reportes">
+              Reportes
             </NavLink>
           ) : null}
           {props.firebaseUser !== null ? (
