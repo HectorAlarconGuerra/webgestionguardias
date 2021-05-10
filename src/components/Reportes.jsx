@@ -66,7 +66,12 @@ const Reportes = () => {
           <h2>Lista de reportes</h2>
           <ul>
             {reportes.length !== 0 ? (
-              reportes.map((item) => <li key={item.id}>{item.reporte}</li>)
+              reportes.map((item) => (
+                <li key={item.id}>
+                  {item.puestoTrabajo}-{item.reporte}-{item.fechaReporte}-
+                  {item.nombreGuardia}-{item.horaReporte}
+                </li>
+              ))
             ) : (
               <span>Lo siento no hay reportes registrados</span>
             )}

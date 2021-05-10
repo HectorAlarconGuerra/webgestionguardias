@@ -7,6 +7,7 @@ import Reportes from "./components/Reportes";
 
 import { auth } from "./utils/firebase";
 import Reset from "./components/Reset";
+import Inicio from "./components/Inicio";
 
 function App() {
   const [firebaseUser, setFirebaseUser] = useState(false);
@@ -28,7 +29,7 @@ function App() {
         <Navbar firebaseUser={firebaseUser} />
         <Switch>
           <Route path="/" exact>
-            inicio...
+            <Inicio />
           </Route>
           <Route path="/login">
             <Login />
