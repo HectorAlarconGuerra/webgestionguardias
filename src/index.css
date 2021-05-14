@@ -17,7 +17,8 @@ code {
 }
 
 #header img {
-  width: 80px;
+  width: 130px;
+  margin: 15px;
 }
 
 #main .carousel-inner img {

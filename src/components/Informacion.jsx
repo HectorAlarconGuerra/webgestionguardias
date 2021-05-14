@@ -1,10 +1,13 @@
 import React from "react";
 
+//import logo from "../assets/logo.png";
+
 export const Informacion = () => {
   return (
     <div className="container">
       <div className="row">
         <div className="col">
+          {/* <img src={logo} /> */}
           <h1>Visión</h1>
           <p>
             Ser la Compañía de Seguridad Privada que ofrece un excelente

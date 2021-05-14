@@ -1,16 +1,16 @@
 import React from "react";
-
+import logo from "../assets/serproemcam.png";
 export const NavbarInicio = () => {
   return (
     <nav id="header" class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <a className="navbar-brand" href="#">
-          Seguridad privada
-          {/* <img
-            src="assets/logo.png"
+          <img
+            src={logo}
             alt="Serproemcam logo"
             className="position-relative  img-fluid"
-          /> */}
+          />
+          Seguridad privada
         </a>
         <button
           className="navbar-toggler"

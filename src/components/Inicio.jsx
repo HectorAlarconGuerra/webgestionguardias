@@ -7,13 +7,13 @@ import { NavbarInicio } from "./NavbarInicio";
 
 const Inicio = () => {
   return (
-    <div className="container bg-primary">
+    <div className="container">
       {/* <div className="row">
         <div className="col-12 col-lg-3">1</div>
         <div className="col-12 col-lg-9">2</div>
       </div> */}
       <NavbarInicio />
-      {/* <Carousel /> */}
+      {/* <Carousel />  */}
       <Informacion />
       <Footer />
     </div>
