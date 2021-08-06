@@ -9,7 +9,10 @@ const Reportes = () => {
 
   useEffect(() => {
     const getReportes = async () => {
-      const { docs } = await db.collection("Reportes").get();
+      const { docs } = await db
+        .collection("Reportes")
+        .orderBy("fechacreacion", "desc")
+        .get();
       const nuevoArray = docs.map((item) => ({ id: item.id, ...item.data() }));
       setReportes(nuevoArray);
     };
@@ -63,7 +66,7 @@ const Reportes = () => {
           )}
         </div> */}
         <div className="col">
-          <h2>Lista de reportes</h2>
+          <h2>Lista de reportes diarios</h2>
           <ul>
             {reportes.length !== 0 ? (
               reportes.map((item) => (

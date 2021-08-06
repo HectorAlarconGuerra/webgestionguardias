@@ -1,9 +1,9 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Carousel } from "./Carousel";
-import { Footer } from "./Footer";
+//import { Carousel } from "./Carousel";
+//import { Footer } from "./Footer";
 import { Informacion } from "./Informacion";
-import { NavbarInicio } from "./NavbarInicio";
+//import { NavbarInicio } from "./NavbarInicio";
 
 const Inicio = () => {
   return (
@@ -12,10 +12,10 @@ const Inicio = () => {
         <div className="col-12 col-lg-3">1</div>
         <div className="col-12 col-lg-9">2</div>
       </div> */}
-      <NavbarInicio />
+      {/* <NavbarInicio /> */}
       {/* <Carousel />  */}
       <Informacion />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
